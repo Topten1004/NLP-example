@@ -1,0 +1,98 @@
+convert to lowcase
+x['Phrase']=x['Phrase'].transform(lambda value:value.lower())
+y['Phrase']=y['Phrase'].transform(lambda value:value.lower())
+
+remove punctuation
+import re
+x['Phrase']=x['Phrase'].transform(lambda value:re.sub(r'[^\w\s]','',value.lower()))
+y['Phrase']=y['Phrase'].transform(lambda value:re.sub(r'[^\w\s]','',value.lower()))
+
+word normalization
+stemming / lemmatizer
+
+stemming using porterstemmer from nltk
+from nltk.stem import PorterStemmer
+ps=PorterStemmer()
+x['Phrase']=x['Phrase'].transform(lambda value:' '.join( [ps.stem(word) for word in value.split(' ')]))
+y['Phrase']=y['Phrase'].transform(lambda value:' '.join( [ps.stem(word) for word in value.split(' ')]))
+
+
+word2vec using gensim
+from gensim.models import Word2Vec
+
+all_sentences = list([sentence.split(' ') for sentence in x['phrase']) + list([sentence.split(' ') for sentence in x['phrase'])
+
+all_sentedces = [x for x in all_senteces if str(x) != 'nan']
+
+w2v = Word2Vec(all_senteces, size=128, min_count=1, iter=20)
+
+vecto = w2v.wv.vectors
+
+
+number of character(normal->6)
+df1['number_of_character'] = df1['text'].apply(lambda x: len(x))
+
+number of words 
+dfa['number_of_words'] = df1['text'].apply(lambda x: len(nltk.word_tokenize(x))
+
+numver of sentece
+dfa['number_of_sentece'] = df1['text'].apply(lambda x: len(nltk.sent_tokenize(x))
+
+
+
+
+
+get max sequence length
+print('max sequence length;', max(len(s) for s in sequences))
+print('min sequence length:', min(len(s) for s in sequences))
+
+
+
+
+
+processing tokenizer
+
+MAX_VOCAB_SIZE = 100
+tokenizer = Tokenizer(num_words=MAX_VOCAB_SIZE)
+tokenizer.fit_on_texts(issues['joined'])
+sequences = tokenizer.texts_to_sequences(issues['joined'])
+# print(sequences)
+#[3, 3, 27, 6, 31, 14, 81, 31], [3, 3, 4, 40, 16, 9, 48, 31, 46, 95, 8, 93, 65, 93],
+
+word2idx = tokenizer.word_index
+print(len(word2idx))
+
+from keras.preprocessing.sequence import pad_sequences
+data = pad_sequences(sequences, maxlen=100)
+print(data[0])
+
+[ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  3  3 27  6
+ 31 14 81 31]
+
+
+
+
+How to map category to integer 
+imdb_data['sentiment'] = imdb_data['sentiment'].map({'positive': 1, 'negative': 0})
+
+
+
+
+how to convert muiti class to integer
+
+possible_labels = df.Conference.unique()
+
+label_dict = {}
+for index, possible_label in enumerate(possible_labels):
+    label_dict[possible_label] = index
+print(label_dict)
+{'Bug': 0, 'Improvement': 1, 'Task': 2, 'New Feature': 3, 'Documentation': 4, 'Sub-task': 5, 'Test': 6, 'Question': 7, 'Wish': 8, 'Umbrella': 9, 'Dependency upgrade': 10, 'Story': 11, 'Brainstorming': 12}
+
+df['label'] = df.Conference.replace(label_dict)
+
+
+
+

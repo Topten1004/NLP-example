@@ -1,0 +1,18 @@
+I have a dataset of NLP around 50k records
+and the labels are multi-label classification.
+
+The code is requested to be in Python and all in one script with proper comments on each line
+
+The targeted accuracy is F1-Score of 0.7
+
+It is very important to get this accuracy or above (without it the requirements won't be met)
+
+
+Attached is a sample of the dataset
+
+Some info about the dataset
+* Around 60K records
+* Around 30K features
+* Around 1400 Labels (Multi-Label Classification)
+
+You will need NLP preprocessing techniques and Algorithms (BOW, TFIDF, RNN, LSTM, etc)
